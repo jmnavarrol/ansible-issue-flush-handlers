@@ -5,7 +5,7 @@ It's been tested using the Python *virtualenv* defined on [ansible.requirements]
 
 ## usage
 1. Create and load a Python virtualenv with [ansible.requirements](./ansible.requirements) (I used [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io)).
-1. Run ansible on this repo's root (result *as-is*):
+1. Run ansible on this repo's root against [the test playbook](./ansible/playbook.yml) (result *as-is*):
     ```console
     (ansible) user@host:~/ansible-issue-41313$ ansible-playbook ansible/playbook.yml
     [WARNING]: No inventory was parsed, only implicit localhost is available
