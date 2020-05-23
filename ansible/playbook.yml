@@ -1,0 +1,39 @@
+---
+# See https://github.com/ansible/ansible/issues/41313
+- name: "A test for #41313"
+  hosts: localhost
+  connection: local
+  
+#---
+# PRE-TASKS
+#---
+  pre_tasks:
+  - name: Shows Ansible version
+    debug:
+      msg: "Playbook running Ansible version {{ ansible_version.string }}"
+
+#---
+# TASKS
+#---
+  tasks:
+  - name: First task
+    set_fact:
+      my_task: 'first_task.  This should appear AFTER the last task message!!!'
+    changed_when: true
+    notify: my_handler
+
+  - name: "This 'flush_handlers' should NEVER be triggered as the 'when' clause ALWAYS evaluates to False!"
+    meta: flush_handlers
+    when: 1 == 2
+
+  - name: Last task
+    debug:
+      msg: 'This is the last task. This should appear BEFORE the triggered handler!!!'
+
+#---
+# HANDLERS
+#---
+  handlers:
+  - name: my_handler
+    debug:
+      msg: "Handler triggered from {{ my_task }}"
