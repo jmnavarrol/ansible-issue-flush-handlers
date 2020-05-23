@@ -19,7 +19,7 @@
   - name: First task
     set_fact:
       my_task: 'first_task.  This should appear AFTER the last task message!!!'
-    changed_when: true
+    changed_when: true  # make sure the handler is always notified
     notify: my_handler
 
   - name: "This 'flush_handlers' should NEVER be triggered as the 'when' clause ALWAYS evaluates to False!"
