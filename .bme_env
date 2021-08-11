@@ -1,0 +1,7 @@
+# subdirectory-level BME enviro file
+# See https://github.com/jmnavarrol/ansible-issues
+
+# Remembers my current "identity"
+echo -e "${C_BOLD}Current git email:${C_GREEN}" `git config user.email` "${C_NC}"
+# Shows current branch
+echo -e "${C_BOLD}Current git branch:${C_GREEN}" `git rev-parse --abbrev-ref HEAD` "${C_NC}"
