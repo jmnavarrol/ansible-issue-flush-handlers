@@ -1,0 +1,4 @@
+# Repo's main .gitignore file
+
+# Bash Magic Enviro requirement
+.bme.d/
