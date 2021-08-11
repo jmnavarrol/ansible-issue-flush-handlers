@@ -1,5 +1,6 @@
 ---
 - name: "A test for #41313. See https://github.com/ansible/ansible/issues/41313"
+  become: False
   hosts: localhost
   connection: local
   
@@ -7,10 +8,11 @@
 # PRE-TASKS
 #---
   pre_tasks:
-  - name: Shows Ansible version
+  - name: Shows involved versions
     debug:
       msg:
-      - "Playbook running Ansible version '{{ ansible_version.string }}'"
+      - "Python version: '{{ ansible_python_version }}'."
+      - "Ansible version '{{ ansible_version.string }}'."
       - "This is always going to be the First Message."
       - "See tasks' sorting below..."
 
