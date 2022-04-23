@@ -1,5 +1,5 @@
 ---
-- name: "A test for #41313. See https://github.com/ansible/ansible/issues/41313"
+- name: "A test for 'flush_handlers' action. See https://github.com/ansible/ansible/issues/77616"
   become: False
   hosts: localhost
   connection: local
@@ -22,8 +22,8 @@
   tasks:
   - name: "First task (it triggers 'my_handler')"
     set_fact:
-      my_task: "This comes from 'first_task'."
-    changed_when: true  # make sure the handler is always notified
+      my_task: "This was triggered from 'first_task'."
+    changed_when: true  # this makes sure the handler is always notified
     notify: my_handler
 
   - name: "This 'flush_handlers' should NEVER be triggered as the 'when' clause ALWAYS evaluates to False!"
@@ -34,7 +34,7 @@
     debug:
       msg:
       - 'This is the last task.'
-      - "If 'flush_handlers' worked as it should, this would appear BEFORE the triggered handler!!!"
+      - "If 'flush_handlers' worked as intended, this would appear BEFORE the triggered handler!!!"
 
 #---
 # HANDLERS
@@ -44,4 +44,4 @@
     debug:
       msg:
       - "{{ my_task }}"
-      - "If 'flush_handlers' worked as it should, this would be the LAST message!!!"
+      - "If 'flush_handlers' worked as intended, this would be the LAST message!!!"
