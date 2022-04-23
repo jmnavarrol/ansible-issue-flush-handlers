@@ -1,0 +1,5 @@
+---
+# Meant to be conditionally included to overcome 'flush_handlers' inability to honor 'when' clauses
+
+- name: "This 'flush_handlers' should NEVER be triggered as the 'when' clause ALWAYS evaluates to False!"
+  meta: flush_handlers

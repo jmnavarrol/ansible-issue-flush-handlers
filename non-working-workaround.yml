@@ -1,0 +1,50 @@
+---
+- name: "A test for 'flush_handlers' action. See https://github.com/ansible/ansible/issues/77616"
+  become: False
+  hosts: localhost
+  connection: local
+  
+#---
+# PRE-TASKS
+#---
+  pre_tasks:
+  - name: Shows involved versions
+    debug:
+      msg:
+      - "Python version: '{{ ansible_python_version }}'."
+      - "Ansible version '{{ ansible_version.string }}'."
+      - "This is always going to be the First Message."
+      - "See tasks' sorting below..."
+
+#---
+# TASKS
+#---
+  tasks:
+  - name: "First task (it triggers 'my_handler')"
+    set_fact:
+      my_task: "This was triggered from 'first_task'."
+    changed_when: true  # this makes sure the handler is always notified
+    notify: my_handler
+
+  # Since 'flush_handlers' doesn't honor conditionals, I wrap it on an artifact that does honor them
+  # This won't work because 'import_tasks' is of the static kind
+  - name: "'import_tasks' is not good enough to avoid 'flush_handlers' from running"
+    import_tasks:
+      file: include_flush.yml
+    when: 1 == 2
+
+  - name: Last task
+    debug:
+      msg:
+      - 'This is the last task.'
+      - "If 'flush_handlers' worked as intended, this would appear BEFORE the triggered handler!!!"
+
+#---
+# HANDLERS
+#---
+  handlers:
+  - name: my_handler
+    debug:
+      msg:
+      - "{{ my_task }}"
+      - "If 'flush_handlers' worked as intended, this would be the LAST message!!!"
