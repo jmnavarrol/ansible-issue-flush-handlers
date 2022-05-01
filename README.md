@@ -64,7 +64,7 @@ The basic rationale is that *"if you can't add a *when* clause to 'flush_handler
 
 In this vein, Ansible supports *includes* so if I conditionally include a file that only runs the *'flush_handlers'* task, *"it should work, right?"*.  Well, almost...
 
-There are two kinds of includes in Ansible: *static* and *dynamic*.  Since the problem here is that Ansible's interpreter in the controller will irrespectively run *meta* tasks whenever it sees them and *static* includes do parse the code, *static* includes will fail.  On the other hand, *dynamic* includes only loads the code once it reaches it at runtime, provided it should; in other words, the interpreter will only *"see"* the *meta* directive if and only conditions are met, so *'flush_handlers'* will work as expected in this conditions.
+There are two kinds of includes in Ansible: *static* and *dynamic*.  Since the problem here is that Ansible's interpreter in the controller will irrespectively run *meta* tasks whenever it sees them and *static* includes do parse the code, *static* includes will fail.  On the other hand, *dynamic* includes only load the code once they reach it at runtime, provided it should; in other words, the interpreter will only *"see"* the *meta* directive if and only conditions are met, so *'flush_handlers'* will work as expected in this conditions.
 
 I added two other playbooks to show my case (no inventory, so just run `ansible-playbook workaround.yml` or `ansible-playbook non-working-workaround.yml`):
 1. **[workaround.yml](./workaround.yml):** it uses *include_tasks*, which is dynamic and, thus, it works as expected.
