@@ -1,7 +1,21 @@
+----
+**IMPORTANT NOTICE:**
+
+When I updated to **ansible 9.3.0** I noticed this behaviour changed: **this bug seems to be solved!!!**
+
+It's a pity [Ansible issue #77616](https://github.com/ansible/ansible/issues/77616) is closed for new comments as I would want to updated it.
+
+As of now, all three playbooks render the desired outcome: messages appear in the expected order (first is first, last is last).
+
+I'll leave this repository in case somebody finds it while using an older Ansible version.
+
+----
+
 # ansible-issue-77616
 This a test for [Ansible issue #77616](https://github.com/ansible/ansible/issues/77616) (meta: flush_handlers. Wrong conditional behaviour).
 1. [Usage](#usage)
 1. [Workaround](#workaround)
+
 
 ## usage<a name="usage"></a>
 This repository's development environment is managed by means of my [ansible-issues](https://github.com/jmnavarrol/ansible-issues) project, so for easy use I recommend cloning/forking it.
